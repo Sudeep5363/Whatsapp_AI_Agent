@@ -1,190 +1,192 @@
 # WhatsApp AI Agent Bot
 
-An automated WhatsApp bot that replies to incoming messages using AI-powered responses with Selenium web automation.
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=flat-square&logo=python)
+![Selenium](https://img.shields.io/badge/Selenium-4.15-green?style=flat-square&logo=selenium)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
+
+An intelligent WhatsApp automation bot that replies to incoming messages using keyword-based AI responses and Selenium web automation. Perfect for businesses looking to automate customer service on WhatsApp Web.
+
+## Overview
+
+This bot monitors WhatsApp Web for incoming messages and automatically generates contextual replies based on predefined keywords. It leverages Selenium for browser automation and maintains persistent Chrome sessions for seamless operation.
+
+**Use Cases:**
+- Automated customer support responses
+- Lead generation and qualification
+- Out-of-office auto-replies
+- Business inquiry automation
+- Availability information delivery
 
 ## Prerequisites
 
-Before running this project, ensure you have the following installed on your system:
+Before running this project, ensure you have the following installed:
 
 ### System Requirements
-- **Python**: Version 3.8 or higher
-- **Google Chrome**: Latest version (required for Selenium automation)
-- **pip**: Python package manager (usually comes with Python)
+- Python: 3.8 or higher
+- Google Chrome: Latest version (required for Selenium)
+- pip: Python package manager
 
 ### Verify Installation
 ```bash
-python --version
-pip --version
+python --version  # Should be 3.8+
+pip --version     # Should be pip 20.0+
 ```
 
-## Installation & Setup
+## Quick Start
 
-### Step 1: Clone the Repository
+### 1. Clone & Setup
 ```bash
+# Clone the repository
 git clone https://github.com/Sudeep5363/Whatsapp_AI_Agent.git
 cd Whatsapp_AI_Agent
-```
 
-### Step 2: Create a Virtual Environment (Recommended)
-```bash
-# On Windows
+# Create virtual environment
 python -m venv .venv
+
+# Activate virtual environment
+# On Windows:
 .venv\Scripts\activate
-
-# On macOS/Linux
-python -m venv .venv
+# On macOS/Linux:
 source .venv/bin/activate
-```
 
-### Step 3: Install Required Dependencies
-```bash
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-Or install manually:
-```bash
-pip install selenium
-pip install webdriver-manager
-```
-
-## Usage
-
-### Running the WhatsApp Bot
+### 2. Running the Bot
 
 ```bash
-# Make sure your virtual environment is activated
 python whatsapp_bot.py
 ```
 
-### Steps to Execute:
+#### Execution Steps
 
-1. **Run the script**:
-   ```bash
-   python whatsapp_bot.py
-   ```
+1. Start the script - Chrome opens WhatsApp Web
+2. Scan QR Code - Use your mobile WhatsApp
+3. Press Enter - Bot starts monitoring
+4. Auto-Reply - Bot responds to messages
+5. Check Console - View message logs
 
-2. **Scan QR Code**:
-   - A Chrome browser window will open with WhatsApp Web
-   - Scan the QR code with your mobile WhatsApp
-   - You will be logged in to your WhatsApp account
+## Configuration & Customization
 
-3. **Press Enter**:
-   - After scanning, press Enter in the terminal to continue
+### Customizing Replies
 
-4. **Bot is Now Active**:
-   - The bot will monitor incoming messages
-   - It will automatically reply based on the keywords in the `build_reply()` function
-   - Messages will be logged in the console
-
-## Configuration
-
-### Customizing Bot Replies
-
-Edit the `build_reply()` function in `whatsapp_bot.py` to change the automated responses:
+Edit the `build_reply()` function in [whatsapp_bot.py](whatsapp_bot.py) to add/modify automatic responses:
 
 ```python
 def build_reply(message_text: str) -> str:
-    if "price" in message_text:
-        return "Your custom price response here"
-    if "hello" in message_text:
-        return "Your custom greeting here"
-    # Add more conditions as needed
+    """Generate AI-powered response based on message content."""
+    if "price" in message_text or "cost" in message_text:
+        return "Our pricing: Rs 3000 startup + Rs 500/month"
+    if "available" in message_text:
+        return "We're available 9 AM - 8 PM IST"
+    if "hello" in message_text or "hi" in message_text:
+        return "Hello! How can I assist you?"
+    return "Thanks for your message. We'll get back to you soon!"
 ```
 
-### Chrome Session Persistence
+### Session Management
 
-The bot uses a persistent Chrome session stored at:
+The bot automatically persists Chrome sessions:
 - **Windows**: `%APPDATA%\whatsapp_bot_session`
+- **Linux/Mac**: `~/.config/whatsapp_bot_session`
 
-This allows the bot to maintain login sessions across restarts.
+This means you don't need to scan the QR code on every restart.
 
 ## Features
 
-✅ Automatic message detection  
-✅ AI-powered keyword-based replies  
-✅ Session persistence  
-✅ Error handling and logging  
-✅ Real-time incoming message monitoring  
-✅ Outgoing message count tracking  
+- Real-time monitoring of incoming messages
+- Keyword-based intelligent reply generation
+- Session persistence across restarts
+- Robust error handling and logging
+- Cross-platform browser automation
+- Message tracking and console logging
+- Easy configuration and customization
 
-## Supported Keywords
+## Keyword Reference
 
-The bot automatically replies to messages containing:
-- **price, cost, charge** - Pricing information
-- **location, where** - Location details
-- **service** - Service information
-- **time, timing** - Availability information
-- **hi, hello** - Greeting response
-- **demo** - Demo request
-- **offer, discount** - Special offers
-- **contact, call** - Contact information
-- **thanks** - Thank you response
-- **bye** - Goodbye message
+| Keyword(s) | Response Type |
+|------------|---------------|
+| price, cost, charge | Pricing details |
+| location, where | Location information |
+| service | Service description |
+| time, timing | Availability hours |
+| hi, hello | Greeting |
+| demo | Demo request |
+| offer, discount | Special offers |
+| contact, call | Contact info |
+| thanks | Thank you |
+| bye | Goodbye |
+
+**Note**: Keywords are case-insensitive and checked as substring matches.
 
 ## Dependencies
 
-| Package | Purpose |
-|---------|---------|
-| selenium | Web browser automation |
-| webdriver-manager | Automatic Chrome driver management |
+| Package | Version | Purpose |
+|---------|---------|----------|
+| selenium | 4.15.2 | Web browser automation |
+| webdriver-manager | 4.0.1 | Automatic Chrome driver management |
+
+All dependencies are specified in [requirements.txt](requirements.txt)
 
 ## Troubleshooting
 
-### Issue: "Chrome driver not found"
-**Solution**: The `webdriver-manager` package should auto-download it. If it fails:
+### ChromeDriver Issues
 ```bash
 pip install --upgrade webdriver-manager
 ```
 
-### Issue: "QR code window doesn't appear"
-**Solution**: Ensure Chrome is installed and up-to-date. Check:
-```bash
-chrome://version
-```
+### QR Code Not Appearing
+- Ensure Google Chrome is fully updated
+- Check Chrome version via `chrome://version`
+- Try using a fresh Chrome profile
 
-### Issue: "Bot doesn't reply to messages"
-**Solution**: 
-- Check the XPath selectors in `find_incoming_messages()` function
-- WhatsApp Web updates may change the DOM structure
-- Verify the message keywords match your custom shortcuts
+### Bot Not Replying
+- Verify keywords in `build_reply()` match your test messages
+- Check WhatsApp Web loads correctly
+- Ensure you're logged in before continuing
+- WhatsApp DOM structure changes may require XPath updates
 
-### Issue: "Module not found" errors
-**Solution**: Reinstall dependencies:
+### Import Errors
 ```bash
 pip install -r requirements.txt --force-reinstall
 ```
 
-## File Structure
+## Project Structure
 
 ```
 Whatsapp_AI_Agent/
 ├── whatsapp_bot.py       # Main bot script
-├── agent.py              # Agent configuration (if applicable)
-├── README.md             # This file
-└── requirements.txt      # Python dependencies
+├── agent.py              # Agent utilities
+├── requirements.txt      # Dependencies
+├── README.md             # Documentation
+├── LICENSE               # MIT License
+├── CONTRIBUTING.md       # Contribution guidelines
+└── .github/              # GitHub templates
 ```
 
-## Important Notes ⚠️
+## Important Notes
 
-1. **WhatsApp Web Compliance**: This bot automates WhatsApp Web. Ensure you comply with WhatsApp's Terms of Service.
+1. WhatsApp ToS - Use responsibly and check WhatsApp's Terms of Service
+2. Browser Window - Keep Chrome open while the bot is running
+3. Persistent Sessions - Login sessions are automatically saved
+4. Message Polling - Bot checks for messages every 3 seconds
+5. Error Recovery - Errors are logged and bot continues
+6. Single Instance - Run only one bot instance to avoid conflicts
 
-2. **Keep Browser Open**: Do not close the Chrome window while the bot is running.
+## Contributing
 
-3. **Session Persistence**: The bot saves your login session automatically.
-
-4. **Message Queue**: The bot checks for new messages every 3 seconds.
-
-5. **Error Recovery**: If an error occurs, the script logs it and continues running.
-
-## Support & Contributions
-
-For issues, feature requests, or contributions, visit:
-https://github.com/Sudeep5363/Whatsapp_AI_Agent
+Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## License
 
-This project is provided as-is for educational and personal use.
+This project is licensed under the MIT License - see [LICENSE](LICENSE) for details.
+
+## Links
+
+- GitHub: [github.com/Sudeep5363/Whatsapp_AI_Agent](https://github.com/Sudeep5363/Whatsapp_AI_Agent)
+- Issues: [Report a bug](https://github.com/Sudeep5363/Whatsapp_AI_Agent/issues)
 
 ---
 
-**Last Updated**: March 18, 2026
+Created by Sudeep | March 2026
